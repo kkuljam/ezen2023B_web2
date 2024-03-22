@@ -31,10 +31,12 @@ import CommentList from './chapter5/CommentList'
 
 //chapte7 실습
 import Counter from './chapter7/Counter';
+import UseStateList from './chapter7/UseStateList';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Counter />
+    {/* <Counter /> */}
+    <UseStateList />
   </React.StrictMode>
   ); 
 //setInterval(함수(),밀리초):밀리초마다 해당 함수 실행
