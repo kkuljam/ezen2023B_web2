@@ -32,13 +32,29 @@ import CommentList from './chapter5/CommentList'
 //chapte7 실습
 import Counter from './chapter7/Counter';
 import UseStateList from './chapter7/UseStateList';
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import Counter2 from './chapter7/Counter2';
+
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(
+//     {/* <Counter /> */}
+//     <UseStateList />
+//   
+//   ); 
+
+  //chapte8 실습
+import ConfirmButton
+ from './chapter8/ComfirmButton';
+ 
+
+//chapte9 실습
+import LandingPage
+ from './chapter9/LandingPage';
+ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <Counter /> */}
-    <UseStateList />
+    <Counter2 />
   </React.StrictMode>
-  ); 
+);
 //setInterval(함수(),밀리초):밀리초마다 해당 함수 실행
 // setInterval(()=>{
 //   root.render(<Clock />);
