@@ -13,10 +13,13 @@ import lombok.Setter;
 public class BoardEntity {
     @Id //pk
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment
-    private int bno; // 게시물 번호
+    private int bno; // 게시물 번호pk
     //@Column(name="title", length = 10,nullable = false,unique = true,columnDefinition = "longtext")
-    @Column(columnDefinition = "longtext")
+    //@Column(columnDefinition = "longtext")
     private String btitle;  // 게시물제목
+    @JoinColumn // fk
+    @ManyToOne // 다수가 하나에게 M:1
+    private MemberEntity memberEntity; // 단방향
 
 
 }
