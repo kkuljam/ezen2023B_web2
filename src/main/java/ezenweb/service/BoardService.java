@@ -53,7 +53,6 @@ public class BoardService {
                 .rcontent("댓글입니다.")
                 .build();
             //2.******** [fk대입1 작성자]
-
         replyEntity.setMemberEntity(saveMemberEntity);
             //2.******** [fk대입2 게시물번호]
         replyEntity.setBoardEntity(saveBoardEntity);
