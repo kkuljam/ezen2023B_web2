@@ -49,12 +49,24 @@ import ConfirmButton
 //chapte9 실습
 import LandingPage
  from './chapter9/LandingPage';
- const root = ReactDOM.createRoot(document.getElementById('root'));
+
+
+
+//chapte10 실습
+import AttendenceBook from './chapter10/AttendenceBook';
+
+//chapte11 실습
+import NameForm from './chapter11/NameForm';
+//import SignUp from './chapter11/SignUp';
+import SignUp from './component/member/SignUp';
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Counter2 />
+    <SignUp />
   </React.StrictMode>
 );
+
+
 //setInterval(함수(),밀리초):밀리초마다 해당 함수 실행
 // setInterval(()=>{
 //   root.render(<Clock />);

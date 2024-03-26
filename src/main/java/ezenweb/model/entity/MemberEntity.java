@@ -1,5 +1,6 @@
 package ezenweb.model.entity;
 
+import ezenweb.model.Dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -13,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder@ToString
-public class MemberEntity {
+public class MemberEntity extends BaseTime{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int mno;
@@ -37,6 +38,17 @@ public class MemberEntity {
     @OneToMany(mappedBy = "memberEntity")
     @ToString.Exclude // 해당 객체 호출시 해당 필드는 호출하지 않는다.
     private List<ReplyEntity> replyEntityList=new ArrayList<>();
+
+    //- 엔티티를 dto로 변환하는 메소드
+    public MemberDto toDto(){
+        return MemberDto.builder()
+                .mno(this.mno)
+                .mname(this.mname)
+                .memail(this.memail)
+                .mrol(this.mrol)
+                .mpassword(this.mpassword)
+                .build();
+    }
 
 
 }
