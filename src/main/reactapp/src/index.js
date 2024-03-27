@@ -59,14 +59,20 @@ import AttendenceBook from './chapter10/AttendenceBook';
 import NameForm from './chapter11/NameForm';
 //import SignUp from './chapter11/SignUp';
 import SignUp from './component/member/SignUp';
+
+//chapte0 axios
+import Axios컴포넌트 from './chapter0/Axios컴포넌트';
+//chapte0 Route
+import Route컴포넌트 from './chapter0/Route컴포넌트';
+
+//web2 라우터 컴포넌트
+import Index from './component/Index';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <SignUp />
+    <Index />
   </React.StrictMode>
 );
-
-
 //setInterval(함수(),밀리초):밀리초마다 해당 함수 실행
 // setInterval(()=>{
 //   root.render(<Clock />);

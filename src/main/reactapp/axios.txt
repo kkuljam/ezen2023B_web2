@@ -1,0 +1,7 @@
+AXIOS
+    정의 : HTTP 비동기 통신 지원하는 (node.js 라이브러리)함수
+        - 주로 : 서버 (spring) 과 테이터 통신할 때
+    
+    .then()
+    응답매개변수 : 객체(json) 형식으로  HTTP 정보 객체 반환
+        response.data : 응답받은 데이터

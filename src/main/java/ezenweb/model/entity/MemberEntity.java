@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name="member")
-@Setter
+@Setter@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder@ToString
