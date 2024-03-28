@@ -1,0 +1,17 @@
+import Card from "./Card";
+
+export default function ProfiledCard(props){
+    return(
+       <div>
+            <Card title="Inje Lee" backgroundColor="skyblue">
+            <p>안녕하세요, 소플입니다</p>
+            <p>저는 리액트를 사용해서 개발하고 있습니다.</p>
+            </Card>
+            <Card title="Inje Lee" backgroundColor="skyblue">
+            <p>안녕하세요, 소플입니다</p>
+            <p>저는 리액트를 사용해서 개발하고 있습니다.</p>
+            </Card>
+         </div>
+           
+    );
+}

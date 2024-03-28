@@ -15,15 +15,23 @@ public class MemberService {
     MemberEntityRepository memberEntityRepository;
 
     //1. 회원가입
-    public boolean doSignupPost( MemberDto memberDto){
+    public int doSignupPost( MemberDto memberDto){
         System.out.println("memberDto = " + memberDto);
-
+        // 중복검사
+        List<MemberEntity> memberEntityList= memberEntityRepository.findAll();
+        for(int i=0; i<memberEntityList.size(); i++){
+            MemberEntity m=memberEntityList.get(i);
+            //3. 만약에 아이디가 동일하면(엔티티와 dto)
+            if(m.getMemail().equals(memberDto.getMemail())){
+                return 0;
+            }
+        }
         //-- Dao 안니 엔티티 이용한 레코드 저장하는 방법
         //1. 엔티티를 만든다
         //2. 리포지토리 통한 엔티티를 저장한다
         MemberEntity savedEntity =memberEntityRepository.save(memberDto.toEntity());
-        if(savedEntity.getMno() > 0) return true;
-        return false;
+        if(savedEntity.getMno() > 0) return 1;
+        return 2;
     }
     //* 로그인 했다는 증거/기록
     @Autowired private HttpServletRequest request;
@@ -53,7 +61,7 @@ public class MemberService {
     public boolean doLogoutget(){
         request.getSession().setAttribute("loginInfo",null);
         //request.getSession().invalidate();
-        return false;
+        return true;
     }
 
     //4. 현재 로그인 회원정보 호출 (세션 호출)

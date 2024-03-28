@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { Logout } from "../member/Login";
 export default function Header (props){
 
     //0 로그인 정보 state 변수
@@ -21,8 +21,13 @@ export default function Header (props){
         {loginInfo&& <span>{loginInfo.memail}님</span>}
         <ul>
             <li><Link to="/"> 홈 </Link></li>
-            <li><Link to="/member/signup"> 회원가입 </Link></li>
-            <li><Link to="/member/login"> 로그인 </Link></li>
+            
+            {! loginInfo ? 
+            <>
+                <li><Link to="/member/signup"> 회원가입 </Link></li>
+                <li><Link to="/member/login"> 로그인 </Link></li>
+            </>
+            :<li><button onClick={Logout}>로그아웃</button></li>}
         </ul>
     </div>
     </>)

@@ -67,11 +67,13 @@ import Route컴포넌트 from './chapter0/Route컴포넌트';
 
 //web2 라우터 컴포넌트
 import Index from './component/Index';
+
+//chapter12 실습
+import Calculator from './chapter12/Calculator';
+import ProfiledCard from './chapter13/ProfiledCard';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
     <Index />
-  </React.StrictMode>
 );
 //setInterval(함수(),밀리초):밀리초마다 해당 함수 실행
 // setInterval(()=>{

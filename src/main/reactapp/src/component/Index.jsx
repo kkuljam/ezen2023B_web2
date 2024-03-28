@@ -5,6 +5,7 @@ import Footer from "./layout/Footer";
 import SignUp from "./member/SignUp";
 import Login from "./member/Login";
 
+
 export default function Index(props){
     return(<>
         <BrowserRouter>
@@ -16,7 +17,7 @@ export default function Index(props){
                 <Route path="/member/signup" element={<SignUp/>}/>
                 <Route path="/member/login" element={<Login/>}/>
             </Routes>
-            <Home />
+
             <Footer />
         </div>
         </BrowserRouter>

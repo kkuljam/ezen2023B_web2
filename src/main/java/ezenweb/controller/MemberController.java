@@ -13,7 +13,7 @@ public class MemberController {
     private MemberService memberService;
 
     @PostMapping("/signup/post.do") //1. 회원가입
-    public boolean doSignupPost(@RequestBody MemberDto memberDto){
+    public int doSignupPost(@RequestBody MemberDto memberDto){
         System.out.println("memberDto = " + memberDto);
         return memberService.doSignupPost(memberDto);
     }
@@ -22,11 +22,13 @@ public class MemberController {
     public boolean doLoginPost(MemberDto memberDto){
         return memberService.doLoginPost(memberDto);
     }
+
     @GetMapping("/logout/get.do") //3. 로그아웃
     public boolean doLogoutget(){
         return memberService.doLogoutget();
     }
-    @GetMapping("/login/info/get.do")
+
+    @GetMapping("/login/info/get.do")// 현재 로그인 회원정보 호출
     public MemberDto doLoginInfo(){
         return memberService.doLoginInfo();
     }

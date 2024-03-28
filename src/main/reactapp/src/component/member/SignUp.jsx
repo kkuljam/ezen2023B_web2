@@ -23,11 +23,13 @@ export default function SignUp(props){
             .then(response=>{
                 console.log(response)
             
-                if(response.data){
+                if(response.data==0){
+                    alert('중복된 아이디입니다')
+                }else if(response.data==1){
                     alert('회원가입 성공')
                     window.location.href = "/member/login"; // <a />
-                }else{
-                    alert('회원가입 실패')
+                }else if(response.data==2){
+                    alert('회원가입 실패 *관리자에게 문의하세요')
                 }
             })
 
