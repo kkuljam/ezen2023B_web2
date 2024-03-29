@@ -1,5 +1,6 @@
 package ezenweb.model.entity;
 
+import ezenweb.model.Dto.BoardDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -11,7 +12,7 @@ import java.util.List;
 @Table(name="board")
 @Builder @Setter
 @NoArgsConstructor @AllArgsConstructor
-public class BoardEntity {
+public class BoardEntity extends BaseTime{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bno;
@@ -31,6 +32,20 @@ public class BoardEntity {
     @OneToMany(mappedBy = "boardEntity")
     @ToString.Exclude // 해당 객체 호출시 해당 필드는 호출하지 않는다.
     private List<ReplyEntity> replyEntityList=new ArrayList<>();
+
+    //- 게시물 출력
+    // -
+    public BoardDto toDto(){
+        return  BoardDto.builder()
+                .bno( this.bno )
+                .bcontent( this.bcontent )
+                .bview( this.bview )
+                .mno_fk( memberEntity.getMno() )
+                .memail( memberEntity.getMemail() )
+                .cdate( this.getCdate() )
+                .udate( this.getUdate() )
+                .build();
+    }
 
 }
 /*

@@ -33,6 +33,27 @@ public class MemberService {
         if(savedEntity.getMno() > 0) return 1;
         return 2;
     }
+
+    //5. 아이디 중복검사
+    public boolean getFindMemail(String memail){
+
+        //1. 모든 엔티티에서 해당 필드의 값을 찾는다
+        memberEntityRepository.findAll().forEach((m)->{
+            if(m.getMemail().equals(memail)){
+
+            }
+        });
+        //2. 리포지토리 추상메소드 이용하는 방법
+        memberEntityRepository.findByMemail(memail);
+
+        //3. 특정 필드의 조건으로 존재여부 검색
+        memberEntityRepository.existsByMemail(memail);
+
+        //4. 직접 native SQL 지원
+        memberEntityRepository.findByMemailSQL(memail);
+
+        return false;
+    }
     //* 로그인 했다는 증거/기록
     @Autowired private HttpServletRequest request;
 

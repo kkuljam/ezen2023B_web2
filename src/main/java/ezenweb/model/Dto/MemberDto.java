@@ -4,12 +4,13 @@ package ezenweb.model.Dto;
 import ezenweb.model.entity.MemberEntity;
 import ezenweb.service.MemberService;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
-@Builder
+@SuperBuilder
 @Setter@Getter@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberDto {
+public class MemberDto  extends BaseTimeDto{
 
     private int mno;
     private String memail;
