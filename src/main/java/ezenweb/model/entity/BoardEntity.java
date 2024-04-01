@@ -8,33 +8,34 @@ import org.hibernate.annotations.ColumnDefault;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity //해당 클래스와 연동DB내 테이블과 매핑/연결(ORM)
-@Table(name="board")
-@Builder @Setter
-@NoArgsConstructor @AllArgsConstructor
-public class BoardEntity extends BaseTime{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Entity
+@Table(name = "board")
+@AllArgsConstructor@NoArgsConstructor
+@Getter @Setter@Builder@ToString
+public class BoardEntity extends BaseTime {
+    @Id // PK
+    @GeneratedValue( strategy = GenerationType.IDENTITY) // AUTO_INCREMENT
     private int bno;
 
-    @Column(columnDefinition = "longtext" )
+    @Column( columnDefinition = "longtext") // longtext
     private String bcontent;
 
-    @ColumnDefault("0")
-    private  int bview;
+    @Column
+    @ColumnDefault("0")     // int , default 0
+    private int bview;
 
-    //================ FK 필드
-    @JoinColumn(name="mno_fk") //fk 필드명
+    // 단방향 : FK 필드
+    @JoinColumn( name="mno_fk")// fk필드명
     @ManyToOne // 해당 필드 참조
     private MemberEntity memberEntity;
 
-    //양방향 : 댓글 fk
-    @OneToMany(mappedBy = "boardEntity")
-    @ToString.Exclude // 해당 객체 호출시 해당 필드는 호출하지 않는다.
-    private List<ReplyEntity> replyEntityList=new ArrayList<>();
+    // 양방향 : 게시물fk
+    @OneToMany( mappedBy = "boardEntity")
+    @ToString.Exclude
+    @Builder.Default
+    private List<ReplyEntity> replyEntityList = new ArrayList<>();
 
-    //- 게시물 출력
-    // -
+    // - 게시물 출력
     public BoardDto toDto(){
         return  BoardDto.builder()
                 .bno( this.bno )

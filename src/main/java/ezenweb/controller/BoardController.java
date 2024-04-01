@@ -1,5 +1,6 @@
 package ezenweb.controller;
 
+import ezenweb.model.Dto.BoardDto;
 import ezenweb.model.entity.BoardEntity;
 import ezenweb.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,11 @@ import java.util.Objects;
 public class BoardController {
     @Autowired private BoardService boardService;
     @PostMapping("/post.do")
-    public boolean postBoard(){
-        return boardService.postBoard();
+    public boolean postBoard(BoardDto boardDto){
+        return boardService.postBoard(boardDto);
     }
     @GetMapping("/get.do")
-    public List<Objects> getBoard(){
+    public List<BoardDto> getBoard(){
         return boardService.getBoard();
     }
     @PutMapping("/put.do")
