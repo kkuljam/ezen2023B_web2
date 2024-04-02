@@ -16,7 +16,8 @@ import java.util.Objects;
 public class BoardController {
     @Autowired private BoardService boardService;
     @PostMapping("/post.do")
-    public boolean postBoard(BoardDto boardDto){
+    public boolean postBoard( BoardDto boardDto){
+        System.out.println("boardDto = " + boardDto);
         return boardService.postBoard(boardDto);
     }
     @GetMapping("/get.do")
