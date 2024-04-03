@@ -2,6 +2,7 @@ package ezenweb.service;
 
 import ezenweb.model.Dto.BoardDto;
 import ezenweb.model.Dto.MemberDto;
+import ezenweb.model.Dto.PageDto;
 import ezenweb.model.entity.BoardEntity;
 import ezenweb.model.entity.GalleryEntity;
 import ezenweb.model.entity.MemberEntity;
@@ -13,6 +14,9 @@ import ezenweb.model.repository.ReplyEntityRepository;
 import jakarta.transaction.Transactional;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Member;
@@ -69,7 +73,33 @@ public class BoardService {
 
     // 2. R
     @Transactional
-    public List<BoardDto> getBoard() {
+    public PageDto getBoard(int page, int view) {
+
+
+        //1  Pageable 인터페이스 이용한 페이징처리
+            //Pageabled은 page 순서 0부터 시작하기 때문에  page가 1페이지일때 0페이지로 변환하기 위해 -1 처리
+        Pageable pageable= PageRequest.of(page-1,view);
+
+            //1. 페이징처리된 엔티티 호출
+        Page<BoardEntity> boardEntityPage =boardEntityRepository.findAll(pageable);
+            //-- List 아닌 page 타입일 때 list 동일한 메소드 사용하고 추가 기능
+                //1. 전체 페이지수
+        System.out.println("boardEntityPage.getTotalPages() = " + boardEntityPage.getTotalPages());
+        int count=boardEntityPage.getTotalPages();
+                //2. 전체 게시물수
+        System.out.println("boardEntityPage.getTotalElements() = " + boardEntityPage.getTotalElements());
+            //2. 엔티티를 Dto 변환
+        List<Object> data=boardEntityPage.stream().map(((boardEntity)->{
+            return boardEntity.toDto();
+        })).collect(Collectors.toList());
+        //2. 페이지 Dto 반환 값 구성
+            //1.
+        PageDto pageDto = PageDto.builder()
+                .data(data)
+                .page(page)
+                .count(count)
+                .build();
+        return pageDto;
         //==========================1=========================
        /* // 1. 리포지토리를 이용한 모든 엔티티( 테이블에 매핑 하기전 엔티티 )를 호출
         List<BoardEntity> result = boardEntityRepository.findAll();
@@ -94,9 +124,6 @@ public class BoardService {
         }
         return boardDtoList;*/
         //==========================2=========================
-        return boardEntityRepository.findAll().stream().map(((boardEntity)->{
-            return boardEntity.toDto();
-        })).collect(Collectors.toList());
     }
 
     // 3. U
@@ -109,10 +136,28 @@ public class BoardService {
 
     // 4. D
     @Transactional
-    public boolean deleteBoard() {
-        boardEntityRepository.deleteById(1);
+    public boolean deleteBoard(int bno) {
+        //Cannot delete or update a parent row: a foreign key constraint fails : 참조키 오류
+        MemberDto loginDto= memberService.doLoginInfo();
+        if(loginDto==null){
+            return false;
+        }
+        System.out.println(loginDto.getMno());
+        List<Object>reslut=boardEntityRepository.findByBnoAndMno(bno,loginDto.getMno() );
+        System.out.println("List 반환"+reslut);
+        if( ! reslut.isEmpty()){
+            boardEntityRepository.deleteById(bno);
+            return true;
+        }
         return false;
     }
+     /* MemberEntity memberEntity= loginDto.toEntity();
+        BoardEntity boardEntity=BoardEntity.builder()
+                .bno(bno)
+                .build();*/
+       /* BoardDto boardDto=new BoardDto();
+        boardDto.setBno(bno);
+        boardDto.toEntity();*/
 }
 //}
 //    //1.c
