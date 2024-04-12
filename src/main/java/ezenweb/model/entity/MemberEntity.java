@@ -4,6 +4,7 @@ import ezenweb.model.Dto.MemberDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder@ToString
+@DynamicInsert // default 값을 삽입시 적용할때 사용
 public class MemberEntity extends BaseTime{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +26,7 @@ public class MemberEntity extends BaseTime{
     @Column(length = 20)
     private String mname;
     @Column(name = "mrol" )
-    @ColumnDefault("'user'") //문자 '' , 숫자
+    @ColumnDefault("'USER'") //문자 '' , 숫자
     private String mrol;
 
     //양방향 :게시물fk @OneToMany(mappedBy = "해당테이블 fk필드명")

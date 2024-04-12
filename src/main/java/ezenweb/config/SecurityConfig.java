@@ -43,8 +43,20 @@ public class SecurityConfig { // 시큐리티를 커스텀 하는 곳
                         .loginProcessingUrl("/member/login/post.do")   //로그인을 처리할 url 정의
                         .usernameParameter("memail")    //로그인에 사용할 id
                         .passwordParameter("mpassword")    //로그인에 사용할 pw
+                        .successHandler((request, response, authentication) -> {
+                            response.setContentType("application/json;utf-8");
+                            response.getWriter().println("true"); //@ResonseBody 역할
+                        })
+                        .failureHandler((request, response, exception) -> {
+                            System.out.println("exception = " + exception.getMessage()); // 실패 예외 이유
+                            response.setContentType("application/json;utf-8");
+                            response.getWriter().println("false");
+                        })
+                        /*
+                        .failureHandler((request 요청객체, response 응답객체, exception 실패정보객체) -> {})
+                        .successHandler((request 요청객체 , response 응답객체, authentication 성공유저인증정보객체) -> {})
                         .defaultSuccessUrl("/") //로그인 성공하면 반환될 url
-                        .failureForwardUrl("/member/login") // 로그인 실패하면 반환될 url
+                        .failureForwardUrl("/member/login") // 로그인 실패하면 반환될 url*/
         );
         //3. 로그아웃 커스텀 (기존 controller 매핑함수 주석 /삭제 처리)
         http.logout(
@@ -58,6 +70,16 @@ public class SecurityConfig { // 시큐리티를 커스텀 하는 곳
         http.csrf(AbstractHttpConfigurer::disable); // csrf사용 안함 // 개발작업시
         //5. 로그인을 처리할 서비스 등록
         http.userDetailsService(memberService);
+
+        //6. oauth2 (소셜 로그인)
+        http.oauth2Login( oAuth2LoginConfigurer -> {
+            oAuth2LoginConfigurer
+                    .loginPage("/member/login") //oauth2 로그인을 할 url
+                    .userInfoEndpoint(userInfoEndpointConfig ->
+                        userInfoEndpointConfig.userService(memberService));
+        });          //Endpoint : 종착점
+                    // 세션 : 1.(톰캣) http서블릿세션 2.(JS)Session 3.(ws)WebSocketSession
+                        //- [서버측] 저장소
         return http.build();
     }
 
