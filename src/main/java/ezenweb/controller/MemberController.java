@@ -20,7 +20,8 @@ public class MemberController {
         return memberService.doSignupPost( memberDto );
     }
 
-    @PostMapping("/login/post.do") // 2. 로그인
+    // 스프링 시큐리티로 인한 로그인/ 로그아웃 사용 안함=================
+   /* @PostMapping("/login/post.do") // 2. 로그인
     public boolean doLoginPost( MemberDto memberDto ){
         return memberService.doLoginPost( memberDto );
     }
@@ -29,7 +30,7 @@ public class MemberController {
     public boolean doLogOutGet( ){
         return memberService.doLogOutGet();
     }
-
+*/
     @GetMapping("/login/info/get.do") // 4. 내정보
     public MemberDto doLoginInfo( ){
         return memberService.doLoginInfo();

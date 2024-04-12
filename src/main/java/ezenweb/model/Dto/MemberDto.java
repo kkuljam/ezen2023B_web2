@@ -5,6 +5,7 @@ import ezenweb.model.entity.MemberEntity;
 import ezenweb.service.MemberService;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SuperBuilder
 @Setter@Getter@ToString
@@ -25,7 +26,15 @@ public class MemberDto  extends BaseTimeDto{
                 .mname(this.mname)
                 .memail(this.memail)
                 .mrol(this.mrol)
-                .mpassword(this.mpassword)
+                .mpassword(new BCryptPasswordEncoder().encode(this.mpassword))
+                //new BCryptPasswordEncoder().encode(암호화 할 데이터)
+                /*
+                    암호화란 :
+                        암호 : 정보를 이해할 수 없도록 = 사람이 이해할 수 없도록
+                        - 이해할 수 없도록 자기만의 방법으로 변경
+                        - 스프링 시큐리티가 제공하는 종류 : 1. bcrypt 암호화 잠금
+
+                 */
                 .build();
         // this ?? : 해당 메소드를 호출한 인스턴스
     }

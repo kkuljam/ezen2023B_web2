@@ -20,7 +20,6 @@ public class MemberEntity extends BaseTime{
     private int mno;
     @Column(length = 50 , unique = true)
     private String memail;
-    @Column(length = 30)
     private String mpassword;
     @Column(length = 20)
     private String mname;
